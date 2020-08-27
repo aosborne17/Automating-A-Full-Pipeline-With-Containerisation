@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  db:
+    # here we are pulling the mongodb image
+    image: mongo
+    # we want to restart the container whenever we run the file
+    restart: always
+    # telling the container to run on port 27017
+    ports: [27017:27017]
+
+  web:
+    # we are specifying the path from where to build are container from
+    build: ./app
+    restart: always
+    # the container will be running from port 3000
+    ports: [3000:3000]
+    environment:
+      # adding the env variable, so the app knows where to locate the db
+      - DB_HOST=mongodb://db:27017/posts
+    depends_on:
+      - db

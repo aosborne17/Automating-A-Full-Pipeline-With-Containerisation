@@ -109,4 +109,33 @@ sudo docker run -d -p 3000:3000 aosborne17/microservices-with-docker-and-nodejs:
 
 ## Creating our Continuous Deployment job
 
-- Now that we have created an instance to hold our containers we can now 
+- Now that we have created an instance to hold our containers we can now automate the deployment phase with our CD pipeline job
+
+- We must install docker pipeline plugin
+
+
+
+- For this pipeline to be succesfull we must add a credential which allows us to interact with our docker repository
+  
+1)To do this from the dashboard we click manage jenkins
+2 Then manage credentials
+3) Click on the jenkins link found under 'stores scoped to jenkins'
+4) Click global credentials
+5) Then click add credentials on the left hand side
+6) We will then add the username, password and id (the string we will uses to reference that credential within the pipeline)
+
+![](/images/Adding-Docker-Credentials.png)
+
+
+## Creating the Docker Repository
+
+- Before we create the pipeline we want to create a repo that we will send the image to
+- This can be done on docker hub
+- On this instance we will call the repo ''automation-with-docker''
+
+![](/images/Creating-Docker-Repo.png)
+
+
+## Adding the pipeline script
+
+- 
