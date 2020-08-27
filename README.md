@@ -255,7 +255,11 @@ pipeline {
 
 ```
 ssh -o "StrictHostKeyChecking=no" ubuntu@176.34.149.206 <<EOF
-            docker run -d -p 3000:3000 aosborne17/automation-with-docker  
+            docker run -d -p 3000:3000 aosborne17/automation-with-docker:22  
 EOF
-
 ```
+
+- With these configurations, the build is successful however whenever I check the contaiener status they are ran and then destroyed almost instantly
+
+## Creating A Docker Hub webhook to send emails
+
