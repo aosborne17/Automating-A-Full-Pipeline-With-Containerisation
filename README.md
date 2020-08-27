@@ -90,6 +90,21 @@ sudo apt-get install -y docker-ce
 sudo systemctl status docker
 ```
 
+## Giving docker access to sudo
+
+- In order for us to run Docker commands within jenkins we need to allow sudo access for Docker, this can
+be done running the lines of code below
+
+```
+sudo usermod -aG docker ${USER}
+newgrp docker
+sudo service docker restart
+sudo systemctl restart docker
+sudo chmod 666 /var/run/docker.sock
+
+```
+
+
 ## Running a Container within our instance
 
 - We will now pull an image from a docker repository to check if we can see the application running on a browser
@@ -113,30 +128,34 @@ sudo docker run -d -p 3000:3000 aosborne17/microservices-with-docker-and-nodejs:
 
 - We must install docker pipeline plugin
 
+- When creating the job, we want it to be triggered if our CI job is successful
+
+![](/images/Adding-Docker-Credentials.png)
+
 
 
 - For this pipeline to be succesfull we must add a credential which allows us to interact with our docker repository
   
 1)To do this from the dashboard we click manage jenkins
 2 Then manage credentials
-3) Click on the jenkins link found under 'stores scoped to jenkins'
-4) Click global credentials
-5) Then click add credentials on the left hand side
-6) We will then add the username, password and id (the string we will uses to reference that credential within the pipeline)
+1) Click on the jenkins link found under 'stores scoped to jenkins'
+2) Click global credentials
+3) Then click add credentials on the left hand side
+4) We will then add the username, password and id (the string we will uses to reference that credential within the pipeline)
 
 ![](/images/Adding-Docker-Credentials.png)
 
 
 ## Creating the Docker Repository
 
-- Before we create the pipeline we want to create a repo that we will send the image to
+- Before we create the pipeline we want to create a repo that we will send the image
 - This can be done on docker hub
 - On this instance we will call the repo ''automation-with-docker''
 
 ![](/images/Creating-Docker-Repo.png)
 
 
-## Adding the pipeline script
+#### Adding the pipeline script
 
 ```
 pipeline {
@@ -185,5 +204,58 @@ pipeline {
     }
   }
 }
+
+```
+
+
+### Successful Pipeline build
+
+
+- Each of the build should pass successfully
+  
+![](/images/Pipeline-Stage-View.png)
+
+
+
+- We will also be able to see that a push has been made to our Docker Hub
+
+![](/images/Docker-Hub-Pushes.png)
+
+
+
+### Overcoming Obstacles
+
+
+
+
+#### DEDICATION
+
+![](/images/Dedication.png)
+
+
+## Continuous Deployment Job
+
+- We must install the 'SSH agent' plugin to be able to ssh into our Virtual Machines
+  
+  - Now in our builds we click on the SSH agent and add credentials,
+  - we then change kind to ''SSH Username with private key'' and click private key
+  - We will then enter our gitbash and enter the contents of our DevOpsStudents.pem file, copying everything into the jenkins credentials
+
+
+### Security Groups Access
+
+- In our security groups we must allow our master jenkins agent to SSH into our Docker App and run the commands
+
+![](/images/Allowing-Jenkins-To-Enter-Docker-App.png)
+
+
+- We will also trigger this build only if our CD pipeline builds succesfully, this job can then pull the most recently created image from our docker hub and run it from within our EC2 instance
+
+- Our execute shell would look like so:
+
+```
+ssh -o "StrictHostKeyChecking=no" ubuntu@176.34.149.206 <<EOF
+            docker run -d -p 3000:3000 aosborne17/automation-with-docker  
+EOF
 
 ```
