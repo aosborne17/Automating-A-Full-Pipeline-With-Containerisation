@@ -1,5 +1,5 @@
 # This means we wont have to do install node or npm
-FROM node AS app
+FROM node  AS app
 
 # Define our working directory inside the container
 
@@ -20,17 +20,17 @@ COPY . .
 
 # Second stage of our build to production - multi stage Docker build
 
-FROM node:alpine
+# FROM node:alpine
 
-# We want to copy only essential things to this layer
+# # We want to copy only essential things to this layer
 
-# This is the magic line that compressess the size and still provides full functionality
-# The application was lowered from 1GB to 150MB, a reduction of 85%
-# 
-COPY --from=app /usr/src/app /usr/src/app
+# # This is the magic line that compressess the size and still provides full functionality
+# # The application was lowered from 1GB to 150MB, a reduction of 85%
+# # 
+# COPY --from=app /usr/src/app /usr/src/app
 
 # Define the work directory for the second stage build
-WORKDIR /usr/src/app
+# WORKDIR /usr/src/app
 
 
 # Expose the port in which we will run the application
