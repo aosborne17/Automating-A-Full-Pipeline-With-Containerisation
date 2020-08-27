@@ -33,11 +33,11 @@ sudu su jenkins
 - Now we run the agent.jar file
 - 
 ```
+java -jar agent.jar -jnlpUrl http://34.247.181.80:8080/computer/Jenkins-Slave/slave-agent.jnlp -secret 813e64a1fdd2e97f1128ffc6fa4378cb4359464c4a439e4eeb6b4ecda1d99ef3
 
 ```
 
-- Note if we CTRL c we will it will stop the connection between the two so don't do that!
+- Now our node is connected to the master effectively
 
 
-- We then need to connect our jeknins slave to our master by running the following commands
 
