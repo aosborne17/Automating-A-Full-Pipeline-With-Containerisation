@@ -138,4 +138,52 @@ sudo docker run -d -p 3000:3000 aosborne17/microservices-with-docker-and-nodejs:
 
 ## Adding the pipeline script
 
-- 
+```
+pipeline {
+  environment {
+    registry = "aosborne17/automation-with-docker"
+    registryCredential = 'dockerhub'
+    dockerImage = ''
+  }
+  agent any
+  stages {
+    stage('Cloning Git') {
+      steps {
+        git 'https://github.com/aosborne17/Automating-A-Full-Pipeline-With-Containerisation'
+      }
+    }
+    // stage('Build') {
+    //   steps {
+    //      sh 'npm install'
+    //   }
+    // }
+    // stage('Test') {
+    //   steps {
+    //     sh 'npm test'
+    //   }
+    // }
+    stage('Building image') {
+      steps{
+        script {
+          dockerImage = docker.build registry + ":$BUILD_NUMBER"
+        }
+      }
+    }
+    stage('Deploy Image') {
+      steps{
+         script {
+            docker.withRegistry( '', registryCredential ) {
+            dockerImage.push()
+          }
+        }
+      }
+    }
+    stage('Remove Unused docker image') {
+      steps{
+        sh "docker rmi $registry:$BUILD_NUMBER"
+      }
+    }
+  }
+}
+
+```
