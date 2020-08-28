@@ -320,11 +320,11 @@ function doPost(e) {
 ## Further Iterations 
 - Ansible
 - Terraform
+- Add more images to GitHub to explain the steps
+
 
 ## Info
 
 - Pipeline is written in groovy, we can put this on a jar file and place on github
 - Understand each line of code for the pipeline
 
-
-## Version 10 :)
