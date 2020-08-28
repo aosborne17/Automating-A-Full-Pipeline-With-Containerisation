@@ -324,3 +324,6 @@ function doPost(e) {
 
 - Pipeline is written in groovy, we can put this on a jar file and place on github
 - Understand each line of code for the pipeline
+
+
+## Version 7 :)
