@@ -7,7 +7,7 @@ WORKDIR /usr/src/app
 
 # Copy the dependencies into the container
 
-COPY package*.json .
+COPY package.json .
 
 # install npm
 
