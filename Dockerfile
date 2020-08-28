@@ -1,43 +1,34 @@
-# This means we wont have to do install node or npm
-FROM node AS app
+# select base image to build our own customised node app microservice
 
-# Define our working directory inside the container
+FROM node as APP
+
+# working directory inside the container
 
 WORKDIR /usr/src/app
 
-# Copy the dependencies into the container
+# copy dependencies
 
 COPY package.json .
 
-# install npm
+# Install npm
 
 RUN npm install
 
+# copy everything from current location to default location inside the container
 
-
-# from the current folder we want to copy everything into the working location of the container
 COPY . .
 
-# Second stage of our build to production - multi stage Docker build
+#FROM node:alpine
 
-# FROM node:alpine
+#COPY --from=app /usr/src/app /usr/src/app
+# This is the magic line that compresses the size
 
-# # We want to copy only essential things to this layer
-
-# # This is the magic line that compressess the size and still provides full functionality
-# # The application was lowered from 1GB to 150MB, a reduction of 85%
-# # 
-# COPY --from=app /usr/src/app /usr/src/app
-
-# Define the work directory for the second stage build
-# WORKDIR /usr/src/app
-
-
-# Expose the port in which we will run the application
+#WORKDIR /usr/src/app
+# define the port
 
 EXPOSE 3000
 
-# CMD ["node", "seeds/seed.js", "start", "node", "app.js"]
+# start the app with CMD
 
-CMD ["node", "app.js"]
+CMD ["node","app.js"]
 
