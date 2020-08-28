@@ -8,7 +8,7 @@ WORKDIR /usr/src/app
 
 # copy dependencies
 
-COPY package.json .
+COPY package*.json ./
 
 # Install npm
 
