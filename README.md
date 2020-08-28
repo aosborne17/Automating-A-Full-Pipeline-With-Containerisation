@@ -271,7 +271,7 @@ EOF
 ```
 
 ## Checking Docker Logs
-- With these configurations, the build is successful however whenever I check the contaiener status they are ran and then destroyed almost instantly
+- With these configurations, the build is successful however whenever I check the container status they are ran and then destroyed almost instantly
 
 - We will therefore check the logs of my container by running the following command
 
@@ -279,7 +279,10 @@ EOF
 docker logs
 ```
 
+- Which shows the current issues, express has not been installing correctly
 
+
+![](/images/Docker-Container-Issue.png)
 
 ## Creating A Docker Hub webhook to send emails
 
