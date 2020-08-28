@@ -310,3 +310,5 @@ function doPost(e) {
 - Note that before we make any pushes, we should always ```git pull``` to make sure we don't have any upstream code changes that we have not added to our local code base
 
 - Add step by step with images how each section of the pipeline works!
+
+# Adding changes
