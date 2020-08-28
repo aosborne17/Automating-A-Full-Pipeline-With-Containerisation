@@ -283,7 +283,7 @@ docker logs
 
 ## Creating A Docker Hub webhook to send emails
 
-- Creating A Google Script
+- Creating A Google Script that once activated will send an email to the team!
 
 ```
 function doGet(e){
@@ -301,7 +301,6 @@ function doPost(e) {
 
 ```
 
-- Still in the workss!!
 
 ## Running the Full End-To-End Pipeline
 
