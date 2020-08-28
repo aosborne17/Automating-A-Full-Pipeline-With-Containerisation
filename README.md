@@ -270,20 +270,35 @@ ssh -o "StrictHostKeyChecking=no" ubuntu@176.34.149.206 <<EOF
 EOF
 ```
 
+## Checking Docker Logs
 - With these configurations, the build is successful however whenever I check the contaiener status they are ran and then destroyed almost instantly
+
+- We will therefore check the logs of my container by running the following command
+
+```
+docker logs
+```
+
+
 
 ## Creating A Docker Hub webhook to send emails
 
 - Creating A Google Script
 
 ```
-function sendEmails() {
-    var emailAddress = 'rgurney@spartaglobal.com'
-    var message = 'Morning Ibbzzzyyy, this is an email to show that Andrew has pushed a new image to his DockerHub. Andrew made a push to his dev branch, which then triggered A CI build on Jenkins. Once this build passed the code was then merged to the master branch and a CD pipeine job was then triggered. This job would then clone the master branch and create a Docker image and push this image to Docker Hub ..... The reason you are getting this message now. After this, a final CD job will be run which will SSH into Andrews Docke App EC2 instance and run the image as a container!! '
-    var subject = 'Sending emails from a Spreadsheet';
+function doGet(e){
+  return HtmlService.createHtmlOutput("request received");
+}
+
+function doPost(e) {
+    var emailAddress = 'IBocus@spartaglobal.com'
+    var message = 'Morning Ibrahim, this is an email to show that Andrew has pushed a new image to his DockerHub.\n Andrew made a push to his dev branch, which then triggered A CI build on Jenkins. Once this build passed the code was then merged to the master branch and a CD pipeine job was then triggered. \n This job would then clone the master branch and create a Docker image and push this image to Docker Hub ..... The reason you are getting this message now. \n After this, a final CD job will be run which will SSH into Andrews Docke App EC2 instance and run the image as a container!! '
+    var subject = 'Sending Emails From Google Scripts';
     MailApp.sendEmail(emailAddress, subject, message);
+    return HtmlService.createHtmlOutput()("post request received");
   
 }
+
 ```
 
 - Still in the workss!!
