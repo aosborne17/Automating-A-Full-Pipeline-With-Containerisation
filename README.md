@@ -266,9 +266,18 @@ pipeline {
 - Our execute shell would look like so:
 
 ```
+# The "$BUILD_NUMBER is specifying the number of the current jenkins build, which will then pull the docker image assigned with that same number
+# We are also echoing in a command that will will run our docker container
+echo "sudo docker run -d -p 3000:3000 aosborne17/automation-with-docker:$BUILD_NUMBER" >> run_container.sh
+# We can then copy over both of the bash scripts that we will run once within the Docker App
+scp -o "StrictHostKeyChecking=no" run_container.sh ubuntu@176.34.149.206:~/
+scp -o "StrictHostKeyChecking=no" delete_containers.sh ubuntu@176.34.149.206:~/
+# We can now SSH into our DockerApp
 ssh -o "StrictHostKeyChecking=no" ubuntu@176.34.149.206 <<EOF
-            docker run -d -p 3000:3000 aosborne17/automation-with-docker:22  
-EOF
+    # Then first delete any running containers
+    sudo bash ./delete_containers.sh
+    # Then run our container
+    sudo bash ./run_container.sh
 ```
 
 ## Checking Docker Logs
@@ -287,7 +296,7 @@ docker logs
 
 ## Creating A Docker Hub webhook to send emails
 
-- Creating A Google Script that once activated will send an email to the team!
+- Creating A Google Script that once activated will send an email to the team! Click this [LINK!](https://script.google.com/home/start)
 
 ```
 function doGet(e){
@@ -312,9 +321,7 @@ function doPost(e) {
 
 - Add step by step with images how each section of the pipeline works!
 
-# Adding changes
-
-- Debug container issue
+- Make a video to explain the process
 
 
 ## Further Iterations 
