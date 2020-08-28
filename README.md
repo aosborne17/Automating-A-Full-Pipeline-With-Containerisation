@@ -312,3 +312,10 @@ function doPost(e) {
 - Add step by step with images how each section of the pipeline works!
 
 # Adding changes
+
+- Debug container issue
+
+
+## Further Iterations 
+- Ansible
+- Terraform

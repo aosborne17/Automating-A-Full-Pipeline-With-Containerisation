@@ -1,5 +1,5 @@
 # This means we wont have to do install node or npm
-FROM node
+FROM node:alpine
 
 # Define our working directory inside the container
 
