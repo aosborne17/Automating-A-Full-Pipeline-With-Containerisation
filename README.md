@@ -6,7 +6,8 @@
 - This project will show end to end automation of source code
 - When changes are made to a dev branch, it will be tested and integrated onto the master branch on Jenkins
 - The next pipeline will then create a Docker image from the merged master branch code and push it to Docker Hub
-- The final job will then 
+- The final job will then pull our image from Docker hub and run the container on our Docker App EC2 instance
+- We should then be able to access the webapp on port 3000 of our Docker App public IP
 
 
 ![](/images/End2End_Diagram_with_Container.png)
